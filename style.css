@@ -112,6 +112,21 @@ body {
     border-left: 5px solid var(--anniversary-color);
 }
 
+
+/* 樣式優化：地圖連結 */
+.map-link {
+    text-decoration: none; /* 移除預設底線 */
+    color: var(--primary-color); /* 使用 Google Blue */
+    transition: color 0.2s;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; /* 圖標和文字間隔 */
+}
+
+.map-link:hover {
+    color: var(--anniversary-color); /* 滑鼠懸停時變色 */
+}
 /* Weather Widget */
 .weather-card {
     display: flex;
@@ -206,4 +221,5 @@ ul { padding-left: 0; list-style: none; }
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
+
 }

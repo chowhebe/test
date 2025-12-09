@@ -149,3 +149,116 @@ function openTab(evt, tabName) {
         }
     }
 }
+
+
+/**
+ * 圖片預覽功能
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    // ... 現有的 DOMContentLoaded 內容 ...
+    
+    // 監聽圖片選擇欄位
+    const imageInput = document.getElementById('share-image');
+    if (imageInput) {
+        imageInput.addEventListener('change', function(e) {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = ''; // 清空舊預覽
+            
+            if (e.target.files && e.target.files[0]) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.style.maxWidth = '100%';
+                    img.style.borderRadius = '8px';
+                    preview.appendChild(img);
+                };
+                
+                // 將圖片讀取為 Data URL (Base64 編碼)，以便儲存在本地儲存 (localStorage)
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '<p>圖片預覽將顯示於此</p>';
+            }
+        });
+    }
+
+    // 載入已儲存的筆記
+    loadLocalNotes();
+});
+
+/**
+ * 儲存文字和圖片 (Base64) 到瀏覽器的本地儲存 (localStorage)
+ */
+function saveShareNote() {
+    const text = document.getElementById('share-text').value;
+    const imageInput = document.getElementById('share-image');
+    let imageData = null;
+
+    // 檢查是否有圖片被選中並有預覽 (Base64 data URL)
+    const previewImg = document.querySelector('#image-preview img');
+    if (previewImg && previewImg.src.startsWith('data:image')) {
+        imageData = previewImg.src;
+    }
+
+    if (!text && !imageData) {
+        alert("請輸入文字或選擇圖片！");
+        return;
+    }
+
+    const note = {
+        id: Date.now(), // 使用時間戳作為唯一 ID
+        text: text,
+        image: imageData,
+        timestamp: new Date().toLocaleString('zh-TW', { dateStyle: 'short', timeStyle: 'short' })
+    };
+
+    // 從 localStorage 獲取所有筆記，如果沒有則初始化為空陣列
+    const notes = JSON.parse(localStorage.getItem('travelNotes')) || [];
+    notes.push(note);
+    localStorage.setItem('travelNotes', JSON.stringify(notes));
+
+    alert("筆記儲存成功！");
+    
+    // 清空表單並重新載入列表
+    document.getElementById('share-text').value = '';
+    document.getElementById('image-preview').innerHTML = '<p>圖片預覽將顯示於此</p>';
+    if (imageInput) imageInput.value = null; // 清空 file input
+    loadLocalNotes();
+}
+
+/**
+ * 從本地儲存載入並顯示所有筆記
+ */
+function loadLocalNotes() {
+    const notesListContainer = document.getElementById('local-notes-list');
+    if (!notesListContainer) return;
+
+    const notes = JSON.parse(localStorage.getItem('travelNotes')) || [];
+    
+    // 顯示標題
+    let html = `<h3><i class="fas fa-list-alt"></i> 已儲存的本地筆記</h3>`;
+    
+    if (notes.length === 0) {
+        html += `<p>您尚未儲存任何筆記。</p>`;
+    } else {
+        html += notes.reverse().map(note => { // 反轉陣列，最新筆記在前
+            const imageHtml = note.image 
+                ? `<div class="saved-image-preview"><img src="${note.image}" alt="Note Image" style="max-width: 100%; border-radius: 4px; margin-top: 10px;"></div>`
+                : '';
+            
+            return `
+                <div class="saved-note-item">
+                    <p class="note-time">${note.timestamp}</p>
+                    <p class="note-text">${note.text.replace(/\n/g, '<br>')}</p>
+                    ${imageHtml}
+                </div>
+            `;
+        }).join('');
+    }
+    
+    notesListContainer.innerHTML = html;
+}
+
+

@@ -8,69 +8,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
     initializeWeatherDisplay();
 });
 
-// ⚠️ 將這裡的 YOUR_API_KEY 替換成您從 OpenWeatherMap 取得的真實 Key
+// ⚠️ 請確認您的 API Key 已填入 ⚠️
 const API_KEY = 'b848d0b11fbff83a27b0a9d9b08d9592'; 
 
 /**
  * 跨日期的地點資訊 (包含座標 latitude/longitude)
- * OpenWeatherMap 建議使用座標查詢預報。
+ * 注意: 已移除 dayIndex
  */
 const dailyWeatherLocations = {
-    'day1': { 
-        city: "難波 (12/16)", 
-        lat: 34.6641, 
-        lon: 135.5000, 
-        elementId: 'weather-info-day1',
-        dayIndex: 0 // API 預報中的第幾天 (0=今天)
-    },
-    'day2': { 
-        city: "梅田 (12/17)", 
-        lat: 34.7052, 
-        lon: 135.4952, 
-        elementId: 'weather-info-day2',
-        dayIndex: 1
-    },
-    'day3': { 
-        city: "京都 (12/18)", 
-        lat: 35.0116, 
-        lon: 135.7681, 
-        elementId: 'weather-info-day3',
-        dayIndex: 2
-    },
-    'day4': { 
-        city: "和歌山 (12/19)", 
-        lat: 34.2259, 
-        lon: 135.1675, 
-        elementId: 'weather-info-day4',
-        dayIndex: 3
-    },
-    'day5': { 
-        city: "白濱 (12/20)", 
-        lat: 33.6823, 
-        lon: 135.3582, 
-        elementId: 'weather-info-day5',
-        dayIndex: 4
-    },
-    'day6': { 
-        city: "難波 (12/21)", 
-        lat: 34.6641, 
-        lon: 135.5000, 
-        elementId: 'weather-info-day6',
-        dayIndex: 5
-    },
-    'day7': { 
-        city: "難波 (12/22)", 
-        lat: 34.6641, 
-        lon: 135.5000, 
-        elementId: 'weather-info-day7',
-        dayIndex: 6
-    }
+    // 雖然是 16日，但我們用最新的當天預報
+    'day1': { city: "難波 (12/16)", lat: 34.6641, lon: 135.5000, elementId: 'weather-info-day1' },
+    'day2': { city: "梅田 (12/17)", lat: 34.7052, lon: 135.4952, elementId: 'weather-info-day2' },
+    'day3': { city: "京都 (12/18)", lat: 35.0116, lon: 135.7681, elementId: 'weather-info-day3' },
+    'day4': { city: "和歌山 (12/19)", lat: 34.2259, lon: 135.1675, elementId: 'weather-info-day4' },
+    'day5': { city: "白濱 (12/20)", lat: 33.6823, lon: 135.3582, elementId: 'weather-info-day5' },
+    'day6': { city: "難波 (12/21)", lat: 34.6641, lon: 135.5000, elementId: 'weather-info-day6' },
+    'day7': { city: "難波 (12/22)", lat: 34.6641, lon: 135.5000, elementId: 'weather-info-day7' }
 };
 
 /**
  * 將 OpenWeatherMap 圖標代碼轉換為 Font Awesome 圖標
- * @param {string} iconCode - OpenWeatherMap 的圖標代碼
- * @returns {string} - Font Awesome 的類別名稱
+ * (此函數保持不變)
  */
 function getWeatherIcon(iconCode) {
     if (iconCode.includes('01')) return 'fas fa-sun'; // Clear sky
@@ -84,70 +42,60 @@ function getWeatherIcon(iconCode) {
 }
 
 /**
- * 🌟 核心函數：發送 API 請求並更新所有日期的天氣 🌟
+ * 🌟 核心函數：為每個地點單獨發送 API 請求並更新天氣 🌟
  */
 async function initializeWeatherDisplay() {
-    if (API_KEY === 'YOUR_API_KEY' || !API_KEY) {
+    if (API_KEY === 'b848d0b11fbff83a27b0a9d9b08d9592' || !API_KEY) {
         console.error("請先替換 OpenWeatherMap API KEY。");
-        // 顯示一個錯誤訊息在頁面頂部
         const header = document.querySelector('.header-content h1');
         if(header) header.innerHTML += ' 🔴 (請設定 API Key)';
         return;
     }
 
-    // 由於大阪是行程中心，我們以難波的座標作為主要的 API 查詢點
-    const centralLocation = dailyWeatherLocations.day1;
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${centralLocation.lat}&lon=${centralLocation.lon}&exclude=current,minutely,hourly,alerts&units=metric&lang=zh_tw&appid=${API_KEY}`;
+    for (const tabId in dailyWeatherLocations) {
+        const locationData = dailyWeatherLocations[tabId];
 
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
+        // 使用 5 day / 3 hour forecast API (最遠可預測 5 天)
+        // One Call API 不適合用於查詢多個地點
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${locationData.lat}&lon=${locationData.lon}&units=metric&lang=zh_tw&appid=${API_KEY}`;
+        
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
 
-        // 檢查 API 是否回傳了 daily 預報數據
-        if (!data || !data.daily) {
-            console.error("API 回傳數據錯誤或預報不可用。", data);
-            return;
-        }
-
-        for (const tabId in dailyWeatherLocations) {
-            const locationData = dailyWeatherLocations[tabId];
-            const dayIndex = locationData.dayIndex;
-
-            // 抓取對應日期的預報數據
-            const forecast = data.daily[dayIndex];
-            
-            // 由於 API 只給了一個預報列表，我們需要特別處理不同地點的邏輯
-            // 這裡我們假設同一天的不同地點，氣溫相差不大，只用API預報的數據
-            if (forecast) {
-                // 將 K 轉為 C，API 已經設定 units=metric，所以直接使用 temp.day
-                const temp_min = Math.round(forecast.temp.min);
-                const temp_max = Math.round(forecast.temp.max);
-                const description = forecast.weather[0].description;
-                const iconCode = forecast.weather[0].icon;
-
-                const weatherInfoElement = document.getElementById(locationData.elementId);
-                const weatherIconElement = document.getElementById(locationData.elementId.replace('info', 'icon')); 
-
-                if (weatherInfoElement) {
-                    const weatherHTML = `
-                        <h3>${locationData.city} 天氣預報</h3>
-                        <p>${description}：<strong>${temp_min}°C - ${temp_max}°C</strong></p>
-                        <small>數據來源：OpenWeatherMap</small>
-                    `;
-                    
-                    weatherInfoElement.innerHTML = weatherHTML;
-                    
-                    if (weatherIconElement) {
-                         weatherIconElement.innerHTML = `<i class="${getWeatherIcon(iconCode)}"></i>`;
-                    }
-                }
-            } else {
-                console.warn(`找不到 ${locationData.city} (Day ${dayIndex + 1}) 的預報數據。`);
+            if (!data || !data.list || data.list.length === 0) {
+                console.error(`API 回傳 ${locationData.city} 數據錯誤或預報不可用。`, data);
+                continue; // 跳過此地點，繼續下一個
             }
-        }
+            
+            // 由於 API 提供 3 小時預報，我們取當前或第一個預報點作為當日天氣概況
+            const forecast = data.list[0]; 
+            
+            // 由於 forecast API 不直接提供 min/max temp，我們使用主溫度作為參考
+            const temp_current = Math.round(forecast.main.temp);
+            const description = forecast.weather[0].description;
+            const iconCode = forecast.weather[0].icon;
+            
+            const weatherInfoElement = document.getElementById(locationData.elementId);
+            const weatherIconElement = document.getElementById(locationData.elementId.replace('info', 'icon')); 
 
-    } catch (error) {
-        console.error("無法連接到 OpenWeatherMap API:", error);
+            if (weatherInfoElement) {
+                const weatherHTML = `
+                    <h3>${locationData.city} 天氣 (即時/當日預報)</h3>
+                    <p>目前氣溫：<strong>${temp_current}°C</strong>, ${description}</p>
+                    <small>數據來源：OpenWeatherMap</small>
+                `;
+                
+                weatherInfoElement.innerHTML = weatherHTML;
+                
+                if (weatherIconElement) {
+                    weatherIconElement.innerHTML = `<i class="${getWeatherIcon(iconCode)}"></i>`;
+                }
+            }
+            
+        } catch (error) {
+            console.error(`無法連接到 ${locationData.city} 的 API:`, error);
+        }
     }
 }
 

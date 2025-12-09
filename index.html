@@ -197,37 +197,29 @@
         </div>
 
         <div id="share" class="tab-content">
-            <div class="card share-card">
-                <h3><i class="fas fa-camera"></i> 購物與筆記</h3>
-                
-                <label for="share-text">旅遊筆記/文字記錄:</label>
-                <textarea id="share-text" placeholder="例如：藥妝比價、想買的清單..." rows="4"></textarea>
+  <div class="card">
+    <h3><i class="fas fa-list"></i> 購物清單</h3>
 
-                <label for="share-image" class="file-upload-label">
-                    <i class="fas fa-cloud-upload-alt"></i> 選擇圖片上傳
-                </label>
-                <input type="file" id="share-image" accept="image/*" style="display: none;">
+    <div class="add-item">
+      <input type="text" id="new-item" placeholder="輸入想買的物品...">
+      <button class="primary-btn" onclick="addItem()">新增</button>
+    </div>
 
-                <div id="image-preview" class="image-preview">
-                    <p>圖片預覽將顯示於此</p>
-                </div>
+    <h4>🛒 想買</h4>
+    <ul id="todo-list"></ul>
 
-                <button class="action-btn primary-btn" onclick="saveShareNote()">
-                    <i class="fas fa-save"></i> 儲存筆記
-                </button>
-                
-                <div class="suggestion note-storage-status">
-                    <strong><i class="fas fa-info-circle"></i> 備註：</strong> 此筆記將儲存在您的**瀏覽器**中 (本地儲存)。
-                </div>
-            </div>
-            
-            <div id="local-notes-list" class="card">
-                <h3><i class="fas fa-list-alt"></i> 已儲存的本地筆記</h3>
-            </div>
-        </div>
+    <h4>✅ 已買</h4>
+    <ul id="done-list"></ul>
+
+    <div class="suggestion" style="margin-top: 12px;">
+      <strong><i class="fas fa-info-circle"></i> 提示：</strong> 資料儲存在您的瀏覽器 (localStorage)，重新整理也會保留。
+    </div>
+  </div>
+</div>
 
     </main>
 
     <script src="script.js"></script>
 </body>
 </html>
+

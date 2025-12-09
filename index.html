@@ -38,6 +38,7 @@
         <button class="tab-btn special-date" onclick="openTab(event, 'day6')">21日<br><small>週年</small></button>
         <button class="tab-btn" onclick="openTab(event, 'day7')">22日<br><small>回程</small></button>
         <button class="tab-btn" onclick="openTab(event, 'info')">其他資訊<br><small>手信</small></button>
+        <button class="tab-btn" onclick="openTab(event, 'share')">購物<br></button>
     </nav>
 
     <main id="app-container">
@@ -245,12 +246,45 @@
             </div>
         </div>
 
+<div id="share" class="tab-content">
+    <div class="card share-card">
+        <h3><i class="fas fa-camera"></i> 買買買</h3>
+        
+        <label for="share-text">旅遊筆記/文字記錄:</label>
+        <textarea id="share-text" placeholder="今天在白濱泡了崎之湯，風景超美！" rows="4"></textarea>
+
+        <label for="share-image" class="file-upload-label">
+            <i class="fas fa-cloud-upload-alt"></i> 選擇圖片上傳
+        </label>
+        <input type="file" id="share-image" accept="image/*" style="display: none;">
+
+        <div id="image-preview" class="image-preview">
+            <p>圖片預覽將顯示於此</p>
+        </div>
+
+        <button class="action-btn primary-btn" onclick="saveShareNote()">
+            <i class="fas fa-save"></i> 儲存筆記
+        </button>
+        
+        <div class="suggestion note-storage-status">
+            <strong><i class="fas fa-info-circle"></i> 備註：</strong> 此筆記將儲存在您的**瀏覽器**中 (本地儲存)。
+        </div>
+    </div>
+    
+    <div id="local-notes-list" class="card">
+        <h3><i class="fas fa-list-alt"></i> 已儲存的本地筆記</h3>
+        </div>
+</div>
+
+
+        
     </main>
 
     <script src="script.js"></script>
 </body>
 
 </html>
+
 
 
 

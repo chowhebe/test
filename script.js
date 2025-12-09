@@ -106,7 +106,7 @@ async function initializeWeatherDisplay() {
 
             if (weatherInfoElement) {
                 const weatherHTML = `
-                    <h3>${locationData.city} 天氣 (即時/當日預報)</h3>
+                    <h3>${locationData.city}</h3>
                     <p>目前氣溫：<strong>${temp_current}°C</strong>, ${description}</p>
                     <small>數據來源：OpenWeatherMap</small>
                 `;
@@ -250,5 +250,6 @@ function loadLocalNotes() {
     
     notesListContainer.innerHTML = html;
 }
+
 
 

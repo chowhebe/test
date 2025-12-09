@@ -251,5 +251,80 @@ function loadLocalNotes() {
     notesListContainer.innerHTML = html;
 }
 
+function getShoppingData() {
+  return JSON.parse(localStorage.getItem('shoppingList')) || { todo: [], done: [] };
+}
+
+function saveShoppingData(data) {
+  localStorage.setItem('shoppingList', JSON.stringify(data));
+}
+
+function renderShoppingList() {
+  const data = getShoppingData();
+  const todoList = document.getElementById('todo-list');
+  const doneList = document.getElementById('done-list');
+  if (!todoList || !doneList) return;
+
+  todoList.innerHTML = '';
+  doneList.innerHTML = '';
+
+  data.todo.forEach((item, index) => {
+    todoList.innerHTML += `
+      <li>
+        <span>${escapeHtml(item)}</span>
+        <div class="list-actions">
+          <button class="list-btn done" onclick="markItemDone(${index})">完成</button>
+          <button class="list-btn delete" onclick="deleteItem(${index}, 'todo')">刪除</button>
+        </div>
+      </li>`;
+  });
+
+  data.done.forEach((item, index) => {
+    doneList.innerHTML += `
+      <li>
+        <span>${escapeHtml(item)}</span>
+        <div class="list-actions">
+          <button class="list-btn delete" onclick="deleteItem(${index}, 'done')">刪除</button>
+        </div>
+      </li>`;
+  });
+}
+
+function addItem() {
+  const input = document.getElementById('new-item');
+  const value = input.value.trim();
+  if (!value) return;
+
+  const data = getShoppingData();
+  data.todo.push(value);
+  saveShoppingData(data);
+  renderShoppingList();
+  input.value = '';
+}
+
+function markItemDone(index) {
+  const data = getShoppingData();
+  const [moved] = data.todo.splice(index, 1);
+  data.done.push(moved);
+  saveShoppingData(data);
+  renderShoppingList();
+}
+
+function deleteItem(index, type) {
+  const data = getShoppingData();
+  data[type].splice(index, 1);
+  saveShoppingData(data);
+  renderShoppingList();
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', renderShoppingList);
+
 
 

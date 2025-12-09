@@ -317,7 +317,8 @@ ul { padding-left: 0; list-style: none; }
 .share-card .primary-btn {
     width: 100%;
     margin-top: 15px;
-    background-color: var(--color-primary);
+    background-color: var(--primary-color); /* ✅ 正確：對應 :root 定義 */
+    color: white; /* 確保文字是白色的 */
 }
 
 /* 已儲存筆記列表樣式 */
@@ -348,3 +349,4 @@ ul { padding-left: 0; list-style: none; }
     font-weight: 400;
     margin: 0;
 }
+

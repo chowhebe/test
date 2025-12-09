@@ -1,6 +1,6 @@
 {
   "name": "大阪關西之旅 2025",
-  "short_name": "零元旅人",
+  "short_name": "大阪關西之旅 2025",
   "description": "即時更新的關西行程與建議",
   "start_url": "/",
   "display": "standalone",
@@ -23,4 +23,5 @@
       "type": "image/png"
     }
   ]
+
 }

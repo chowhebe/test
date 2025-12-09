@@ -259,3 +259,92 @@ ul { padding-left: 0; list-style: none; }
 
 }
 
+/* --- 分享筆記頁面樣式 --- */
+
+.share-card label {
+    display: block;
+    font-weight: 500;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.share-card textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.file-upload-label {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.file-upload-label:hover {
+    background-color: #0056b3;
+}
+
+.file-upload-label .fas {
+    margin-right: 8px;
+}
+
+.image-preview {
+    margin-top: 15px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.image-preview img {
+    max-height: 300px; /* 限制預覽圖高度 */
+    object-fit: contain;
+}
+
+.share-card .primary-btn {
+    width: 100%;
+    margin-top: 15px;
+    background-color: var(--color-primary);
+}
+
+/* 已儲存筆記列表樣式 */
+#local-notes-list {
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.saved-note-item {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.saved-note-item:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.note-time {
+    font-size: 0.85em;
+    color: #888;
+    margin: 0 0 5px 0;
+}
+
+.note-text {
+    font-size: 1em;
+    font-weight: 400;
+    margin: 0;
+}

@@ -6,6 +6,40 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     // 🌟 呼叫新的函式來獲取和載入天氣數據 🌟
     initializeWeatherDisplay();
+
+    // ===========================================
+    // 🌟 【合併功能】本地筆記和圖片預覽初始化 🌟
+    // ===========================================
+    
+    // 監聽圖片選擇欄位
+    const imageInput = document.getElementById('share-image');
+    if (imageInput) {
+        imageInput.addEventListener('change', function(e) {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = ''; // 清空舊預覽
+            
+            if (e.target.files && e.target.files[0]) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.style.maxWidth = '100%';
+                    img.style.borderRadius = '8px';
+                    preview.appendChild(img);
+                };
+                
+                // 將圖片讀取為 Data URL (Base64 編碼)，以便儲存在本地儲存 (localStorage)
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '<p>圖片預覽將顯示於此</p>';
+            }
+        });
+    }
+
+    // 載入已儲存的筆記
+    loadLocalNotes();
 });
 
 // ⚠️ 請確認您的 API Key 已填入 ⚠️
@@ -13,7 +47,6 @@ const API_KEY = 'b848d0b11fbff83a27b0a9d9b08d9592';
 
 /**
  * 跨日期的地點資訊 (包含座標 latitude/longitude)
- * 注意: 已移除 dayIndex
  */
 const dailyWeatherLocations = {
     // 雖然是 16日，但我們用最新的當天預報
@@ -28,7 +61,6 @@ const dailyWeatherLocations = {
 
 /**
  * 將 OpenWeatherMap 圖標代碼轉換為 Font Awesome 圖標
- * (此函數保持不變)
  */
 function getWeatherIcon(iconCode) {
     if (iconCode.includes('01')) return 'fas fa-sun'; // Clear sky
@@ -55,8 +87,6 @@ async function initializeWeatherDisplay() {
     for (const tabId in dailyWeatherLocations) {
         const locationData = dailyWeatherLocations[tabId];
 
-        // 使用 5 day / 3 hour forecast API (最遠可預測 5 天)
-        // One Call API 不適合用於查詢多個地點
         const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${locationData.lat}&lon=${locationData.lon}&units=metric&lang=zh_tw&appid=${API_KEY}`;
         
         try {
@@ -151,42 +181,7 @@ function openTab(evt, tabName) {
 }
 
 
-/**
- * 圖片預覽功能
- */
-document.addEventListener('DOMContentLoaded', () => {
-    // ... 現有的 DOMContentLoaded 內容 ...
-    
-    // 監聽圖片選擇欄位
-    const imageInput = document.getElementById('share-image');
-    if (imageInput) {
-        imageInput.addEventListener('change', function(e) {
-            const preview = document.getElementById('image-preview');
-            preview.innerHTML = ''; // 清空舊預覽
-            
-            if (e.target.files && e.target.files[0]) {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                
-                reader.onload = function(event) {
-                    const img = document.createElement('img');
-                    img.src = event.target.result;
-                    img.style.maxWidth = '100%';
-                    img.style.borderRadius = '8px';
-                    preview.appendChild(img);
-                };
-                
-                // 將圖片讀取為 Data URL (Base64 編碼)，以便儲存在本地儲存 (localStorage)
-                reader.readAsDataURL(file);
-            } else {
-                preview.innerHTML = '<p>圖片預覽將顯示於此</p>';
-            }
-        });
-    }
-
-    // 載入已儲存的筆記
-    loadLocalNotes();
-});
+// --- 本地筆記儲存與載入功能 (Function 區塊) ---
 
 /**
  * 儲存文字和圖片 (Base64) 到瀏覽器的本地儲存 (localStorage)
@@ -260,5 +255,3 @@ function loadLocalNotes() {
     
     notesListContainer.innerHTML = html;
 }
-
-

@@ -77,12 +77,7 @@ function getWeatherIcon(iconCode) {
  * 🌟 核心函數：為每個地點單獨發送 API 請求並更新天氣 🌟
  */
 async function initializeWeatherDisplay() {
-    if (API_KEY === 'b848d0b11fbff83a27b0a9d9b08d9592' || !API_KEY) {
-        console.error("請先替換 OpenWeatherMap API KEY。");
-        const header = document.querySelector('.header-content h1');
-        if(header) header.innerHTML += '  ';
-        return;
-    }
+  
 
     for (const tabId in dailyWeatherLocations) {
         const locationData = dailyWeatherLocations[tabId];
@@ -255,4 +250,5 @@ function loadLocalNotes() {
     
     notesListContainer.innerHTML = html;
 }
+
 

@@ -80,7 +80,7 @@ async function initializeWeatherDisplay() {
     if (API_KEY === 'b848d0b11fbff83a27b0a9d9b08d9592' || !API_KEY) {
         console.error("請先替換 OpenWeatherMap API KEY。");
         const header = document.querySelector('.header-content h1');
-        if(header) header.innerHTML += ' 🔴 (請設定 API Key)';
+        if(header) header.innerHTML += '  ';
         return;
     }
 
@@ -255,3 +255,4 @@ function loadLocalNotes() {
     
     notesListContainer.innerHTML = html;
 }
+

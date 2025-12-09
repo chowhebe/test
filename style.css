@@ -29,6 +29,16 @@ body {
     z-index: 100;
 }
 
+/* 🌟 替換這裡：啟用 Flexbox 佈局 🌟 */
+.header-content {
+    /* 讓 Logo 和標題可以在同一行排列 */
+    display: flex; 
+    /* 讓所有內容垂直置中 */
+    align-items: center; 
+    /* 讓 Logo 和標題之間有預留間隔 */
+    gap: 10px; 
+}
+
 .header-content h1 {
     margin: 0;
     font-size: 1.25rem;
@@ -42,6 +52,31 @@ body {
 }
 
 .text-red { color: var(--anniversary-color); }
+
+/* ==================================== */
+/* 🌟 新增 Logo 樣式與定位 🌟 */
+/* ==================================== */
+.app-logo {
+    /* 設置固定的尺寸，與您選擇的 48x48 檔案匹配 */
+    width: 48px;
+    height: 48px;
+    /* 讓 Logo 呈圓形，視覺效果更好 */
+    border-radius: 50%;
+    
+    /* 🌟 這是關鍵！它會把 Logo 推到右邊盡頭 🌟 */
+    margin-left: auto; 
+    
+    /* 確保 Logo 在主標題和副標題組件右側 */
+    order: 3; /* 確保 Logo 在 h1/p 之後 */
+    flex-shrink: 0; /* 防止 Logo 在小螢幕下被壓縮 */
+}
+
+/* 如果要讓 h1 和 p 保持上下排版，它們必須被額外的 div 包起來 */
+.header-content > div {
+    display: flex;
+    flex-direction: column;
+}
+
 
 /* Scrollable Tabs */
 .scroll-tabs {
@@ -223,3 +258,4 @@ ul { padding-left: 0; list-style: none; }
     to { opacity: 1; transform: translateY(0); }
 
 }
+

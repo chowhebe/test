@@ -306,6 +306,10 @@ function convertJPYtoHKD() {
   }
 }
 
+ // ✅ 計算完成後清空輸入框
+  jpyInput.value = '';
+}
+
 function convertHKDtoJPY() {
   const hkdInput = document.getElementById('hkd-input');
   const val = parseFloat(hkdInput.value);
@@ -320,6 +324,10 @@ function convertHKDtoJPY() {
   } else {
     document.getElementById("fx-result").innerText = "請輸入有效的港元金額";
   }
+}
+
+// ✅ 計算完成後清空輸入框
+  hkdInput.value = '';
 }
 
 function getFxHistory() {
@@ -345,3 +353,4 @@ function clearHistory() {
   localStorage.removeItem('fxHistory');
   renderHistory();
 }
+

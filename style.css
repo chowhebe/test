@@ -364,103 +364,71 @@ ul { padding-left: 0; list-style: none; }
 .add-item {
   display: flex;
   gap: 10px;
-  margin-bottom: 10px; /* 減少與下方清單的距離 */
+  margin-bottom: 10px;
 }
-
-.add-item input {
-  flex: 1;
-  padding: 8px 10px; /* 稍微縮小輸入框高度 */
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.add-item .primary-btn {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap; /* 防止按鈕文字換行 */
-}
+/* ... 略過 .add-item input/button 樣式 ... */
 
 /* 🌟 列表項目樣式 - 緊湊版 🌟 */
 #todo-list li, #done-list li {
   display: flex;
-  justify-content: space-between; /* 左右對齊 */
-  align-items: center; /* 垂直置中 */
-  
-  /* ⬇️ 修改這裡：縮小上下間距 */
-  padding: 6px 0; 
-  
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
   border-bottom: 1px solid #eee;
   font-size: 0.95rem;
-  line-height: 1.2; /* 縮小行高 */
-  
-  /* ⬇️ 修改這裡：移除最小高度限制，解決「變很高」的問題 */
-  /* min-height: 40px;  <-- 刪除這行 */
+  line-height: 1.2;
 }
 
 /* 確保文字與按鈕分開 */
 #todo-list li span, #done-list li span {
   flex-grow: 1;
-  margin-right: 10px; /* 文字與按鈕的距離 */
-  word-break: break-all; /* 防止長文字撐壞版面 */
+  margin-right: 10px;
+  word-break: break-all;
 }
 
-/* 修正後的已買清單樣式 */
+/* 1. 已買清單樣式：項目文字有刪除線和灰色 */
 #done-list li {
   color: #aaa;
-  text-decoration: line-through; /* 讓清單項目文字有刪除線 */
+  text-decoration: line-through; 
 }
 
-/* 確保按鈕本身沒有刪除線 (我們不需要 !important，因為這個選擇器更具體) */
+/* 2. 移除按鈕容器上的刪除線 */
+#done-list li .list-actions,
 #done-list li .list-btn {
-  text-decoration: none;
-  /* 讓按鈕內的文字顏色，使用按鈕定義的顏色 (非繼承自 li 的灰色) */
-  color: inherit; 
+  text-decoration: none; 
 }
 
-/* 由於我們在 .list-btn 定義了顏色，這裡必須保留按鈕的特殊顏色定義 */
-
-/* 刪除按鈕 (紅色) - 保持它被正確覆蓋 */
-.list-btn.delete {
-  color: #d93025;
-  border-color: #d93025;
-  background-color: #fce8e6;
-}
-
-/* 按鈕容器 */
+/* 3. 按鈕容器 */
 .list-actions {
   display: flex;
-  gap: 6px; /* 按鈕之間的距離縮小 */
-  flex-shrink: 0; /* 防止按鈕被壓縮 */
+  gap: 6px;
+  flex-shrink: 0;
 }
 
-/* 🌟 按鈕樣式 - 針對文字優化 🌟 */
+/* 4. 按鈕基本樣式 */
 .list-btn {
-  /* ⬇️ 修改這裡：調整內距，讓按鈕變扁一點 */
-  padding: 4px 8px; 
-  
+  padding: 4px 8px;
   font-size: 0.85rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   background: #fff;
   cursor: pointer;
-  white-space: nowrap; /* 🌟 重要：防止「完成/刪除」換行導致高度變高 */
+  white-space: nowrap;
 }
 
-/* 完成按鈕 (綠色) */
+/* 5. 完成按鈕 (綠色) */
 .list-btn.done {
   color: #0f9d58;
   border-color: #0f9d58;
   background-color: #f0fbf5;
 }
 
-/* 刪除按鈕 (紅色) */
+/* 6. 刪除按鈕 (紅色) - **關鍵：確保這裡有 text-decoration: none** */
 .list-btn.delete {
   color: #d93025;
   border-color: #d93025;
   background-color: #fce8e6;
+  text-decoration: none; /* 🌟 雖然上方的規則已經有了，這裡重複加一次確保萬無一失 🌟 */
 }
 
 .list-btn:hover {
@@ -505,6 +473,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

@@ -381,14 +381,22 @@ ul { padding-left: 0; list-style: none; }
   cursor: pointer;
 }
 
+/* 🌟 核心修正：讓項目名稱和操作按鈕分居左右 🌟 */
 #todo-list li, #done-list li {
   display: flex;
-  justify-content: flex-start;   /* 內容靠最左 */
+  /* 讓項目名稱和操作區間有最大的間距 */
+  justify-content: space-between; 
   align-items: center;
-  gap: 10px;                     /* 文字和按鈕間距 */
-  padding: 4px 0;                /* 行距收窄 */
+  /* 移除原有的 gap，因為 space-between 已經處理了主要間距 */
+  padding: 8px 0; /* 調整行距 */
   border-bottom: 1px solid #f1f3f4;
-  font-size: 0.9rem;
+  font-size: 1rem; /* 恢復基礎字體大小 */
+}
+
+/* 確保商品名稱可以佔滿空間，同時擠壓操作按鈕到右邊 */
+#todo-list li span, #done-list li span {
+  flex-grow: 1; /* 讓名稱佔用剩餘空間 */
+  margin-right: 15px; /* 在名稱和操作按鈕之間留下一些緩衝 */
 }
 
 #done-list li {
@@ -396,14 +404,16 @@ ul { padding-left: 0; list-style: none; }
   text-decoration: line-through;
 }
 
+/* 動作按鈕群組 (例如：打勾和刪除按鈕) */
 .list-actions {
   display: inline-flex;
-  gap: 6px;                      /* 按鈕間距縮小 */
+  gap: 6px;
+  flex-shrink: 0; /* 防止按鈕被壓縮 */
 }
 
 .list-btn {
-  padding: 4px 8px;              /* 按鈕更小巧 */
-  font-size: 0.8rem;
+  padding: 4px 8px;
+  font-size: 0.85rem; /* 稍微放大一點點，提高點擊率 */
   border: 1px solid #dadce0;
   border-radius: 6px;
   background: #fff;
@@ -459,6 +469,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

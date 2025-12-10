@@ -503,6 +503,11 @@ ul { padding-left: 0; list-style: none; }
   color: var(--primary-color);
 }
 
+.final-amount {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
 
 
 

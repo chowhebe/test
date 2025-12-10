@@ -169,16 +169,13 @@ body {
     justify-content: flex-start;
     background: linear-gradient(135deg, #4285f4, #34a853);
     color: white;
-    /* 左右拉到最長 */
-    width: 100%;          /* 佔滿容器寬度 */
-    max-width: 600px;      /* 不限制最大寬度 */
-
-    /* 上下窄一點 */
-    padding: 6px 16px;    /* 上下 6px，左右 16px */
-
-    border-radius: 8px;
-    font-size: 0.9rem;
-    margin: 8px 0;        /* 上下間距縮小 */
+    /* ✅ 跟 .card 一樣寬度 */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
 }
 
 .weather-icon {
@@ -459,6 +456,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

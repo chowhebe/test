@@ -363,12 +363,12 @@ ul { padding-left: 0; list-style: none; }
 
 .add-item input {
   flex: 1;              /* 讓輸入框佔更多空間 */
-  padding: 12px;        /* 增加內距，框更高更寬敞 */
-  font-size: 10px;      /* 放大字體 */
+  padding: 14px;        /* 增加內距，框更高更寬敞 */
+  font-size: 0.8rem;      /* 放大字體 */
 }
 .add-item .primary-btn {
   padding: 7px 14px;       /* 增加內距，按鈕更大 */
-  font-size: 1rem;          /* 放大字體 */
+  font-size: 0.8rem;          /* 放大字體 */
   border: none;
   border-radius: 10px;      /* 稍微加大圓角 */
   cursor: pointer;
@@ -483,6 +483,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

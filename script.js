@@ -205,6 +205,7 @@ function escapeHtml(text) {
     .replace(/'/g, "&#039;");
 }
 
+/* 🌟 請將這段取代 script.js 原有的 renderShoppingList 🌟 */
 function renderShoppingList() {
   const data = getShoppingData();
   const todoList = document.getElementById('todo-list');
@@ -378,5 +379,6 @@ function clearHistory() {
   localStorage.removeItem('fxHistory');
   renderHistory();
 }
+
 
 

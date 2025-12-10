@@ -295,7 +295,7 @@ function convertJPYtoHKD() {
   const val = parseFloat(jpyInput.value);
   if (!isNaN(val)) {
     const hkd = (val * currentRate).toFixed(2);
-    alert(`${val} JPY 約為 ${hkd} HKD`);
+    document.getElementById("fx-result").innerText = `${val} JPY ≈ ${hkd} HKD`;
     addToHistory(`${val} JPY ➝ ${hkd} HKD`);
   } else {
     alert("請輸入有效的日元金額");
@@ -307,7 +307,7 @@ function convertHKDtoJPY() {
   const val = parseFloat(hkdInput.value);
   if (!isNaN(val)) {
     const jpy = (val / currentRate).toFixed(0);
-    alert(`${val} HKD 約為 ${jpy} JPY`);
+    document.getElementById("fx-result").innerText = `${val} HKD ≈ ${jpy} JPY`;
     addToHistory(`${val} HKD ➝ ${jpy} JPY`);
   } else {
     alert("請輸入有效的港元金額");
@@ -340,3 +340,4 @@ function clearHistory() {
   localStorage.removeItem('fxHistory');
   renderHistory();
 }
+

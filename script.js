@@ -48,7 +48,6 @@ function getWeatherIcon(iconCode) {
 async function initializeWeatherDisplay() {
   for (const tabId in dailyWeatherLocations) {
     const locationData = dailyWeatherLocations[tabId];
-    // 注意：免費版 OpenWeatherMap API 可能不支援 forecast 端點或有次數限制，若失敗請檢查 API Key 權限
     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${locationData.lat}&lon=${locationData.lon}&units=metric&lang=zh_tw&appid=${API_KEY}`;
     
     try {
@@ -134,13 +133,30 @@ function openTab(evt, tabName) {
 
 /**
  * 本地筆記 (Local Notes)
- * 注意：這部分依賴 HTML 中是否有 id="share-text" 等元素，若無則此函式不會運作
  */
 function saveShareNote() {
-    // 這裡保留您原本的邏輯，但需確保 HTML 結構完整
-    // 目前 HTML 範例中似乎沒有 share-text 輸入框，如果是放在 id="share" 裡面
-    // 請確保 HTML 結構中有對應的 input/textarea
-    alert("請確認 HTML 中是否有 share-text 輸入框");
+  // 檢查輸入框是否存在 (請在HTML中確保有 id="share-text" 元素)
+  const shareTextInput = document.getElementById('share-text');
+  if (!shareTextInput) {
+    alert("請確保 HTML 中有 id='share-text' 輸入框");
+    return;
+  }
+
+  const text = shareTextInput.value.trim();
+  if (text) {
+    const notes = JSON.parse(localStorage.getItem('travelNotes')) || [];
+    const newNote = {
+      text: text,
+      timestamp: new Date().toLocaleString()
+    };
+    // 如果需要圖片功能，可以在這裡處理 File API
+    notes.push(newNote);
+    localStorage.setItem('travelNotes', JSON.stringify(notes));
+    shareTextInput.value = ''; // 清空輸入框
+    loadLocalNotes();
+  } else {
+    alert("筆記內容不能為空！");
+  }
 }
 
 function loadLocalNotes() {
@@ -154,14 +170,11 @@ function loadLocalNotes() {
     html += `<p>您尚未儲存任何筆記。</p>`;
   } else {
     html += notes.reverse().map(note => {
-      const imageHtml = note.image 
-        ? `<div class="saved-image-preview"><img src="${note.image}" alt="Note Image" style="max-width: 100%; border-radius: 4px; margin-top: 10px;"></div>`
-        : '';
+      // 這裡移除了圖片處理，因為 HTML 中還沒有對應的 input type="file"
       return `
         <div class="saved-note-item">
           <p class="note-time">${note.timestamp}</p>
           <p class="note-text">${note.text.replace(/\n/g, '<br>')}</p>
-          ${imageHtml}
         </div>
       `;
     }).join('');
@@ -293,7 +306,7 @@ async function loadFXRate() {
 function convertJPYtoHKD() {
   const jpyInput = document.getElementById('jpy-input');
   const val = parseFloat(jpyInput.value);
-  const resultDisplay = document.getElementById("fx-result"); // 假設 HTML 中有這個元素
+  const resultDisplay = document.getElementById("fx-result");
 
   if (!isNaN(val)) {
     const hkd = (val * currentRate).toFixed(2);
@@ -310,7 +323,8 @@ function convertJPYtoHKD() {
       resultDisplay.innerHTML = "請輸入有效的日元金額";
     }
   }
-  // ✅ 清空輸入框
+  
+  // 🌟 核心修正：清空日元輸入框
   jpyInput.value = ''; 
 }
 
@@ -318,11 +332,10 @@ function convertJPYtoHKD() {
 function convertHKDtoJPY() {
   const hkdInput = document.getElementById('hkd-input');
   const val = parseFloat(hkdInput.value);
-  const resultDisplay = document.getElementById("fx-result"); // 假設 HTML 中有這個元素
+  const resultDisplay = document.getElementById("fx-result");
 
   if (!isNaN(val)) {
     const jpy = (val / currentRate).toFixed(0);
-    // 這裡應該是港幣的實際支付價格（含手續費），而不是購入日元的價格
     const hkdWithFee = (parseFloat(val) * 1.025).toFixed(2); 
 
     if (resultDisplay) {
@@ -336,7 +349,8 @@ function convertHKDtoJPY() {
       resultDisplay.innerHTML = "請輸入有效的港元金額";
     }
   }
-  // ✅ 清空輸入框
+  
+  // 🌟 核心修正：清空港元輸入框
   hkdInput.value = '';
 }
 

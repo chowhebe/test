@@ -168,10 +168,11 @@ body {
     align-items: center;
     background: linear-gradient(135deg, #4285f4, #34a853);
     color: white;
-/* 確保這三行存在 */
-    max-width: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 280px;       /* 限制最大寬度 */
+    margin: 10px auto;      /* 置中顯示 */
+    padding: 12px;          /* 內距縮小 */
+    border-radius: 8px;     /* 圓角 */
+    font-size: 0.9rem;      /* 調小字體 */
 }
 
 .weather-icon {
@@ -452,6 +453,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

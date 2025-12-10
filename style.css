@@ -388,9 +388,10 @@ ul { padding-left: 0; list-style: none; }
   justify-content: space-between; 
   align-items: center;
   /* 移除原有的 gap，因為 space-between 已經處理了主要間距 */
-  padding: 5px 0; /* 調整行距 */
+  padding: 4px 0; /* 調整行距 */
   border-bottom: 1px solid #f1f3f4;
   font-size: 1rem; /* 恢復基礎字體大小 */
+  line-height: 1.2;      /* 行距縮小 */
 }
 
 /* 確保商品名稱可以佔滿空間，同時擠壓操作按鈕到右邊 */
@@ -469,6 +470,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

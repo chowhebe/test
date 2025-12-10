@@ -361,10 +361,10 @@ ul { padding-left: 0; list-style: none; }
 
 /* --- 購物清單優化版 --- */
 
-.add-item {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
+.add-item input {
+  flex: 3;              /* 讓輸入框佔更多空間 */
+  padding: 12px;        /* 增加內距，框更高更寬敞 */
+  font-size: 16px;      /* 放大字體 */
 }
 /* ... 略過 .add-item input/button 樣式 ... */
 
@@ -375,13 +375,13 @@ ul { padding-left: 0; list-style: none; }
   align-items: center;
   padding: 6px 0;
   border-bottom: 1px solid #eee;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.2;
 }
 
 /* 確保文字與按鈕分開 */
 #todo-list li span, #done-list li span {
-  flex-grow: 3;
+  flex-grow: 2;
   margin-right: 10px;
   word-break: break-all;
 }
@@ -473,6 +473,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

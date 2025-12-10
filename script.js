@@ -306,9 +306,6 @@ function convertJPYtoHKD() {
   }
 }
 
- // ✅ 計算完成後清空輸入框
-  jpyInput.value = '';
-}
 
 function convertHKDtoJPY() {
   const hkdInput = document.getElementById('hkd-input');
@@ -326,9 +323,7 @@ function convertHKDtoJPY() {
   }
 }
 
-// ✅ 計算完成後清空輸入框
-  hkdInput.value = '';
-}
+
 
 function getFxHistory() {
   return JSON.parse(localStorage.getItem('fxHistory')) || [];
@@ -353,4 +348,5 @@ function clearHistory() {
   localStorage.removeItem('fxHistory');
   renderHistory();
 }
+
 

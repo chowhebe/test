@@ -388,7 +388,7 @@ ul { padding-left: 0; list-style: none; }
   justify-content: space-between; 
   align-items: center;
   /* 移除原有的 gap，因為 space-between 已經處理了主要間距 */
-  padding: 8px 0; /* 調整行距 */
+  padding: 10px 0; /* 調整行距 */
   border-bottom: 1px solid #f1f3f4;
   font-size: 1rem; /* 恢復基礎字體大小 */
 }
@@ -396,7 +396,7 @@ ul { padding-left: 0; list-style: none; }
 /* 確保商品名稱可以佔滿空間，同時擠壓操作按鈕到右邊 */
 #todo-list li span, #done-list li span {
   flex-grow: 1; /* 讓名稱佔用剩餘空間 */
-  margin-right: 15px; /* 在名稱和操作按鈕之間留下一些緩衝 */
+  margin-right: 20px; /* 在名稱和操作按鈕之間留下一些緩衝 */
 }
 
 #done-list li {
@@ -469,6 +469,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

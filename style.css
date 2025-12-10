@@ -400,6 +400,11 @@ ul { padding-left: 0; list-style: none; }
   margin-right: 20px; /* 在名稱和操作按鈕之間留下一些緩衝 */
 }
 
+#shopping h4 {
+  margin-bottom: 6px;   /* 標題和清單距離縮小 */
+  margin-top: 12px;     /* 上方保持一點距離 */
+}
+
 #done-list li {
   color: #888;
   text-decoration: line-through;
@@ -470,6 +475,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

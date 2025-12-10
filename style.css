@@ -484,6 +484,25 @@ ul { padding-left: 0; list-style: none; }
   cursor: pointer;
 }
 
+.fx-result-box {
+  background-color: #f1f3f4;   /* 灰色背景 */
+  border: 1px solid #ccc;      /* 灰色邊框 */
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+.fx-result-box span {
+  font-weight: 400; /* 一般文字細體 */
+}
+
+.fx-result-box .final-amount {
+  font-weight: 700; /* 購入金額粗體 */
+  color: var(--primary-color);
+}
+
 
 
 

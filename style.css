@@ -389,7 +389,7 @@ ul { padding-left: 0; list-style: none; }
 /* 1. 已買清單樣式：項目文字有刪除線和灰色 */
 #done-list li {
   color: #aaa;
-  text-decoration: line-through; 
+  text-decoration: none; 
 }
 
 /* 2. 移除按鈕容器上的刪除線 */
@@ -473,6 +473,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

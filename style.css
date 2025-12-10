@@ -383,22 +383,27 @@ ul { padding-left: 0; list-style: none; }
   white-space: nowrap; /* 防止按鈕文字換行 */
 }
 
-/* 列表項目樣式 */
+/* 🌟 列表項目樣式 - 緊湊版 🌟 */
 #todo-list li, #done-list li {
   display: flex;
   justify-content: space-between; /* 左右對齊 */
   align-items: center; /* 垂直置中 */
-  padding: 8px 0; /* 🌟 適中的行距 (不會太高也不會太擠) */
+  
+  /* ⬇️ 修改這裡：縮小上下間距 */
+  padding: 6px 0; 
+  
   border-bottom: 1px solid #eee;
   font-size: 0.95rem;
-  line-height: 1.4;
-  min-height: 40px; /* 確保每行至少有一定高度，方便點擊 */
+  line-height: 1.2; /* 縮小行高 */
+  
+  /* ⬇️ 修改這裡：移除最小高度限制，解決「變很高」的問題 */
+  /* min-height: 40px;  <-- 刪除這行 */
 }
 
 /* 確保文字與按鈕分開 */
 #todo-list li span, #done-list li span {
   flex-grow: 1;
-  margin-right: 15px; /* 文字與按鈕的距離 */
+  margin-right: 10px; /* 文字與按鈕的距離 */
   word-break: break-all; /* 防止長文字撐壞版面 */
 }
 
@@ -410,34 +415,35 @@ ul { padding-left: 0; list-style: none; }
 /* 按鈕容器 */
 .list-actions {
   display: flex;
-  gap: 8px; /* 按鈕之間的距離 */
+  gap: 6px; /* 按鈕之間的距離縮小 */
   flex-shrink: 0; /* 防止按鈕被壓縮 */
 }
 
-/* 按鈕本體樣式 (針對文字優化) */
+/* 🌟 按鈕樣式 - 針對文字優化 🌟 */
 .list-btn {
-  padding: 4px 10px; /* 🌟 調整內距，讓按鈕不會太高 */
+  /* ⬇️ 修改這裡：調整內距，讓按鈕變扁一點 */
+  padding: 4px 8px; 
+  
   font-size: 0.85rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   background: #fff;
   cursor: pointer;
-  line-height: 1.2; /* 控制按鈕內文字行高 */
-  transition: all 0.2s;
+  white-space: nowrap; /* 🌟 重要：防止「完成/刪除」換行導致高度變高 */
 }
 
 /* 完成按鈕 (綠色) */
 .list-btn.done {
   color: #0f9d58;
   border-color: #0f9d58;
-  background-color: #f0fbf5; /* 淺綠底色 */
+  background-color: #f0fbf5;
 }
 
 /* 刪除按鈕 (紅色) */
 .list-btn.delete {
   color: #d93025;
   border-color: #d93025;
-  background-color: #fce8e6; /* 淺紅底色 */
+  background-color: #fce8e6;
 }
 
 .list-btn:hover {
@@ -482,6 +488,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

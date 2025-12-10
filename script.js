@@ -386,4 +386,65 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHistory();
 });
 
+let fxRate = 0; // 當天港元對日元匯率
+let fxHistory = JSON.parse(localStorage.getItem("fxHistory")) || [];
+
+async function loadFXRate() {
+  try {
+    // 使用 exchangerate.host API
+    const res = await fetch("https://api.exchangerate.host/latest?base=HKD&symbols=JPY");
+    const data = await res.json();
+    fxRate = data.rates.JPY;
+    document.getElementById("fx-rate").innerText = `1 港元 ≈ ${fxRate.toFixed(2)} 日元`;
+  } catch (err) {
+    // 如果 API 失敗，顯示備用匯率
+    fxRate = 20.14; 
+    document.getElementById("fx-rate").innerText = `1 港元 ≈ ${fxRate.toFixed(2)} 日元 (備用匯率)`;
+  }
+}
+
+function convertJPYtoHKD() {
+  const jpy = parseFloat(document.getElementById("jpy-input").value);
+  if (isNaN(jpy)) return;
+  const hkd = jpy / fxRate;
+  addHistory(`${jpy} 日元 ≈ ${hkd.toFixed(2)} 港元`);
+}
+
+function convertHKDtoJPY() {
+  const hkd = parseFloat(document.getElementById("hkd-input").value);
+  if (isNaN(hkd)) return;
+  const jpy = hkd * fxRate;
+  addHistory(`${hkd} 港元 ≈ ${jpy.toFixed(2)} 日元`);
+}
+
+function addHistory(record) {
+  fxHistory.unshift(record);
+  if (fxHistory.length > 10) fxHistory.pop();
+  localStorage.setItem("fxHistory", JSON.stringify(fxHistory));
+  renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById("fx-history");
+  if (!list) return;
+  list.innerHTML = "";
+  fxHistory.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  });
+}
+
+function clearHistory() {
+  fxHistory = [];
+  localStorage.removeItem("fxHistory");
+  renderHistory();
+}
+
+// 初始化
+document.addEventListener("DOMContentLoaded", () => {
+  loadFXRate();
+  renderHistory();
+});
+
 

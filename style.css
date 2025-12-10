@@ -388,7 +388,7 @@ ul { padding-left: 0; list-style: none; }
   justify-content: space-between; 
   align-items: center;
   /* 移除原有的 gap，因為 space-between 已經處理了主要間距 */
-  padding: 10px 0; /* 調整行距 */
+  padding: 5px 0; /* 調整行距 */
   border-bottom: 1px solid #f1f3f4;
   font-size: 1rem; /* 恢復基礎字體大小 */
 }
@@ -412,7 +412,7 @@ ul { padding-left: 0; list-style: none; }
 }
 
 .list-btn {
-  padding: 4px 8px;
+  padding: 3px 6px;
   font-size: 0.85rem; /* 稍微放大一點點，提高點擊率 */
   border: 1px solid #dadce0;
   border-radius: 6px;
@@ -469,6 +469,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

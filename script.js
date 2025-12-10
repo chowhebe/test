@@ -215,30 +215,30 @@ function renderShoppingList() {
   todoList.innerHTML = '';
   doneList.innerHTML = '';
 
-  // 渲染待買清單
-  data.todo.forEach((item, index) => {
-    todoList.innerHTML += `
-      <li>
-        <span>${escapeHtml(item)}</span>
-        <div class="list-actions">
-          <button class="list-btn done" onclick="markItemDone(${index})"><i class="fas fa-check"></i></button>
-          <button class="list-btn delete" onclick="deleteItem(${index}, 'todo')"><i class="fas fa-trash"></i></button>
-        </div>
-      </li>
-    `;
-  });
+  // 待買清單
+data.todo.forEach((item, index) => {
+  todoList.innerHTML += `
+    <li>
+      <span>${escapeHtml(item)}</span>
+      <div class="list-actions">
+        <button class="list-btn done" onclick="markItemDone(${index})">完成</button>
+        <button class="list-btn delete" onclick="deleteItem(${index}, 'todo')">刪除</button>
+      </div>
+    </li>
+  `;
+});
 
-  // 渲染已買清單
-  data.done.forEach((item, index) => {
-    doneList.innerHTML += `
-      <li>
-        <span>${escapeHtml(item)}</span>
-        <div class="list-actions">
-          <button class="list-btn delete" onclick="deleteItem(${index}, 'done')"><i class="fas fa-trash"></i></button>
-        </div>
-      </li>
-    `;
-  });
+// 已買清單
+data.done.forEach((item, index) => {
+  doneList.innerHTML += `
+    <li>
+      <span>${escapeHtml(item)}</span>
+      <div class="list-actions">
+        <button class="list-btn delete" onclick="deleteItem(${index}, 'done')">刪除</button>
+      </div>
+    </li>
+  `;
+});
 }
 
 function addItem() {
@@ -378,3 +378,4 @@ function clearHistory() {
   localStorage.removeItem('fxHistory');
   renderHistory();
 }
+

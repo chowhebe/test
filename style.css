@@ -359,83 +359,90 @@ ul { padding-left: 0; list-style: none; }
 }
 
 
+/* --- 購物清單優化版 --- */
 
 .add-item {
   display: flex;
   gap: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px; /* 減少與下方清單的距離 */
 }
 
 .add-item input {
   flex: 1;
-  padding: 10px;
+  padding: 8px 10px; /* 稍微縮小輸入框高度 */
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 14px;
 }
 
 .add-item .primary-btn {
-  padding: 10px 14px;
+  padding: 8px 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
+  white-space: nowrap; /* 防止按鈕文字換行 */
 }
 
-/* 🌟 核心修正：讓項目名稱和操作按鈕分居左右 🌟 */
+/* 列表項目樣式 */
 #todo-list li, #done-list li {
   display: flex;
-  /* 讓項目名稱和操作區間有最大的間距 */
-  justify-content: space-between; 
-  align-items: center;
-  /* 移除原有的 gap，因為 space-between 已經處理了主要間距 */
-  padding: 4px 0; /* 調整行距 */
-  border-bottom: 1px solid #f1f3f4;
-  font-size: 1rem; /* 恢復基礎字體大小 */
-  line-height: 1.2;      /* 行距縮小 */
+  justify-content: space-between; /* 左右對齊 */
+  align-items: center; /* 垂直置中 */
+  padding: 8px 0; /* 🌟 適中的行距 (不會太高也不會太擠) */
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  min-height: 40px; /* 確保每行至少有一定高度，方便點擊 */
 }
 
-/* 確保商品名稱可以佔滿空間，同時擠壓操作按鈕到右邊 */
+/* 確保文字與按鈕分開 */
 #todo-list li span, #done-list li span {
-  flex-grow: 1; /* 讓名稱佔用剩餘空間 */
-  margin-right: 20px; /* 在名稱和操作按鈕之間留下一些緩衝 */
-}
-
-#shopping h4 {
-  margin-bottom: 6px;   /* 標題和清單距離縮小 */
-  margin-top: 12px;     /* 上方保持一點距離 */
+  flex-grow: 1;
+  margin-right: 15px; /* 文字與按鈕的距離 */
+  word-break: break-all; /* 防止長文字撐壞版面 */
 }
 
 #done-list li {
-  color: #888;
+  color: #aaa;
   text-decoration: line-through;
 }
 
-/* 動作按鈕群組 (例如：打勾和刪除按鈕) */
+/* 按鈕容器 */
 .list-actions {
-  display: inline-flex;
-  gap: 6px;
+  display: flex;
+  gap: 8px; /* 按鈕之間的距離 */
   flex-shrink: 0; /* 防止按鈕被壓縮 */
 }
 
+/* 按鈕本體樣式 (針對文字優化) */
 .list-btn {
-  padding: 3px 6px;
-  font-size: 0.85rem; /* 稍微放大一點點，提高點擊率 */
-  border: 1px solid #dadce0;
-  border-radius: 6px;
+  padding: 4px 10px; /* 🌟 調整內距，讓按鈕不會太高 */
+  font-size: 0.85rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   background: #fff;
   cursor: pointer;
+  line-height: 1.2; /* 控制按鈕內文字行高 */
+  transition: all 0.2s;
 }
 
+/* 完成按鈕 (綠色) */
 .list-btn.done {
-  color: #0f9d58; /* 綠色 */
-  border-color: #cde7d5;
+  color: #0f9d58;
+  border-color: #0f9d58;
+  background-color: #f0fbf5; /* 淺綠底色 */
 }
 
+/* 刪除按鈕 (紅色) */
 .list-btn.delete {
-  color: #d93025; /* 紅色 */
-  border-color: #f4c7c3;
+  color: #d93025;
+  border-color: #d93025;
+  background-color: #fce8e6; /* 淺紅底色 */
 }
 
+.list-btn:hover {
+  opacity: 0.8;
+}
 
 .fx-input {
   margin: 10px 0;
@@ -475,6 +482,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

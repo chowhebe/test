@@ -407,16 +407,26 @@ ul { padding-left: 0; list-style: none; }
   word-break: break-all; /* 防止長文字撐壞版面 */
 }
 
+/* 修正後的已買清單樣式 */
 #done-list li {
   color: #aaa;
-  text-decoration: line-through;
+  text-decoration: line-through; /* 讓清單項目文字有刪除線 */
 }
 
-/* 🌟 新增/確認這行：明確排除按鈕和按鈕容器的刪除線 🌟 */
+/* 確保按鈕本身沒有刪除線 (我們不需要 !important，因為這個選擇器更具體) */
 #done-list li .list-btn {
   text-decoration: none;
   /* 讓按鈕內的文字顏色，使用按鈕定義的顏色 (非繼承自 li 的灰色) */
-  color: inherit;
+  color: inherit; 
+}
+
+/* 由於我們在 .list-btn 定義了顏色，這裡必須保留按鈕的特殊顏色定義 */
+
+/* 刪除按鈕 (紅色) - 保持它被正確覆蓋 */
+.list-btn.delete {
+  color: #d93025;
+  border-color: #d93025;
+  background-color: #fce8e6;
 }
 
 /* 按鈕容器 */
@@ -495,6 +505,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

@@ -36,6 +36,8 @@
         <button class="tab-btn" onclick="openTab(event, 'day7')">22日<br><small>回程</small></button>
         <button class="tab-btn" onclick="openTab(event, 'info')">資訊<br><small>手信</small></button>
         <button class="tab-btn" onclick="openTab(event, 'share')">購物<br><small>筆記</small></button>
+        <button class="tab-btn" onclick="openTab(event, 'fx')">匯率<br><small>港元↔日元</small></button>
+
     </nav>
 
     <main id="app-container">
@@ -217,9 +219,34 @@
   </div>
 </div>
 
+<div id="fx" class="tab-content">
+  <div class="card">
+    <h3><i class="fas fa-coins"></i> 港元 ↔ 日元匯率換算</h3>
+    <p id="fx-rate">今日匯率載入中...</p>
+
+    <div class="fx-input">
+      <label>輸入日元：</label>
+      <input type="number" id="jpy-input" placeholder="JPY 金額">
+      <button onclick="convertJPYtoHKD()">轉換成港元</button>
+    </div>
+
+    <div class="fx-input">
+      <label>輸入港元：</label>
+      <input type="number" id="hkd-input" placeholder="HKD 金額">
+      <button onclick="convertHKDtoJPY()">轉換成日元</button>
+    </div>
+
+    <h4>最近 10 次計算記錄</h4>
+    <ul id="fx-history"></ul>
+    <button class="primary-btn" onclick="clearHistory()">清除紀錄</button>
+  </div>
+</div>
+
+        
     </main>
 
     <script src="script.js"></script>
 </body>
 </html>
+
 

@@ -366,6 +366,12 @@ ul { padding-left: 0; list-style: none; }
   padding: 12px;        /* 增加內距，框更高更寬敞 */
   font-size: 16px;      /* 放大字體 */
 }
+.add-item .primary-btn {
+  flex-shrink: 0;       /* 防止按鈕被壓縮 */
+  padding: 10px 18px;   /* 保持按鈕大小 */
+}
+
+
 /* ... 略過 .add-item input/button 樣式 ... */
 
 /* 🌟 列表項目樣式 - 緊湊版 🌟 */
@@ -473,6 +479,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

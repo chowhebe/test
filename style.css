@@ -383,10 +383,12 @@ ul { padding-left: 0; list-style: none; }
 
 #todo-list li, #done-list li {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;   /* 內容靠最左 */
   align-items: center;
-  padding: 8px 0;
+  gap: 10px;                     /* 文字和按鈕間距 */
+  padding: 4px 0;                /* 行距收窄 */
   border-bottom: 1px solid #f1f3f4;
+  font-size: 0.9rem;
 }
 
 #done-list li {
@@ -396,14 +398,14 @@ ul { padding-left: 0; list-style: none; }
 
 .list-actions {
   display: inline-flex;
-  gap: 8px;
+  gap: 6px;                      /* 按鈕間距縮小 */
 }
 
 .list-btn {
-  padding: 6px 10px;
-  font-size: 0.85rem;
+  padding: 4px 8px;              /* 按鈕更小巧 */
+  font-size: 0.8rem;
   border: 1px solid #dadce0;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #fff;
   cursor: pointer;
 }
@@ -417,6 +419,7 @@ ul { padding-left: 0; list-style: none; }
   color: #d93025; /* 紅色 */
   border-color: #f4c7c3;
 }
+
 
 .fx-input {
   margin: 10px 0;
@@ -456,6 +459,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

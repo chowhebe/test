@@ -412,6 +412,12 @@ ul { padding-left: 0; list-style: none; }
   text-decoration: line-through;
 }
 
+/* 🌟 新增/確認這行：明確排除按鈕和按鈕容器的刪除線 🌟 */
+#done-list li .list-actions,
+#done-list li .list-btn {
+  text-decoration: none !important; /* 使用 !important 確保覆蓋父層 li 的效果 */
+}
+
 /* 按鈕容器 */
 .list-actions {
   display: flex;
@@ -488,6 +494,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

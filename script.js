@@ -295,10 +295,14 @@ function convertJPYtoHKD() {
   const val = parseFloat(jpyInput.value);
   if (!isNaN(val)) {
     const hkd = (val * currentRate).toFixed(2);
-    document.getElementById("fx-result").innerText = `${val} JPY ≈ ${hkd} HKD`;
-    addToHistory(`${val} JPY ➝ ${hkd} HKD`);
+    const hkdWithFee = (hkd * 1.025).toFixed(2); // 加上 2.5%
+
+    document.getElementById("fx-result").innerText =
+      `${val} JPY ≈ ${hkd} HKD\n加信用卡手續費(2.5%), 實際購入價格為 : ${hkdWithFee} HKD`;
+
+    addToHistory(`${val} JPY ➝ ${hkd} HKD | 含手續費: ${hkdWithFee} HKD`);
   } else {
-    alert("請輸入有效的日元金額");
+    document.getElementById("fx-result").innerText = "請輸入有效的日元金額";
   }
 }
 
@@ -307,10 +311,14 @@ function convertHKDtoJPY() {
   const val = parseFloat(hkdInput.value);
   if (!isNaN(val)) {
     const jpy = (val / currentRate).toFixed(0);
-    document.getElementById("fx-result").innerText = `${val} HKD ≈ ${jpy} JPY`;
-    addToHistory(`${val} HKD ➝ ${jpy} JPY`);
+    const hkdWithFee = (val * 1.025).toFixed(2); // 港幣加上 2.5%
+
+    document.getElementById("fx-result").innerText =
+      `${val} HKD ≈ ${jpy} JPY\n加信用卡手續費(2.5%), 實際購入價格為 : ${hkdWithFee} HKD`;
+
+    addToHistory(`${val} HKD ➝ ${jpy} JPY | 含手續費: ${hkdWithFee} HKD`);
   } else {
-    alert("請輸入有效的港元金額");
+    document.getElementById("fx-result").innerText = "請輸入有效的港元金額";
   }
 }
 
@@ -320,10 +328,8 @@ function getFxHistory() {
 
 function addToHistory(record) {
   const history = getFxHistory();
-  // 新的加在最前面，只保留最近 10 筆
   history.unshift(record);
   if (history.length > 10) history.pop();
-  
   localStorage.setItem('fxHistory', JSON.stringify(history));
   renderHistory();
 }
@@ -331,7 +337,6 @@ function addToHistory(record) {
 function renderHistory() {
   const historyList = document.getElementById('fx-history');
   if (!historyList) return;
-  
   const history = getFxHistory();
   historyList.innerHTML = history.map(item => `<li>${item}</li>`).join('');
 }
@@ -340,4 +345,3 @@ function clearHistory() {
   localStorage.removeItem('fxHistory');
   renderHistory();
 }
-

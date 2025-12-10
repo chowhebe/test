@@ -413,9 +413,10 @@ ul { padding-left: 0; list-style: none; }
 }
 
 /* 🌟 新增/確認這行：明確排除按鈕和按鈕容器的刪除線 🌟 */
-#done-list li .list-actions,
 #done-list li .list-btn {
-  text-decoration: none !important; /* 使用 !important 確保覆蓋父層 li 的效果 */
+  text-decoration: none;
+  /* 讓按鈕內的文字顏色，使用按鈕定義的顏色 (非繼承自 li 的灰色) */
+  color: inherit;
 }
 
 /* 按鈕容器 */
@@ -494,6 +495,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

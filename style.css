@@ -166,13 +166,19 @@ body {
 .weather-card {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     background: linear-gradient(135deg, #4285f4, #34a853);
     color: white;
-    max-width: 280px;       /* 限制最大寬度 */
-    margin: 10px auto;      /* 置中顯示 */
-    padding: 12px;          /* 內距縮小 */
-    border-radius: 8px;     /* 圓角 */
-    font-size: 0.9rem;      /* 調小字體 */
+    /* 左右拉到最長 */
+    width: 100%;          /* 佔滿容器寬度 */
+    max-width: 100%;      /* 不限制最大寬度 */
+
+    /* 上下窄一點 */
+    padding: 6px 16px;    /* 上下 6px，左右 16px */
+
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin: 8px 0;        /* 上下間距縮小 */
 }
 
 .weather-icon {
@@ -453,6 +459,7 @@ ul { padding-left: 0; list-style: none; }
   color: white;
   cursor: pointer;
 }
+
 
 
 

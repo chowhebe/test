@@ -206,39 +206,39 @@ function escapeHtml(text) {
 }
 
 function renderShoppingList() {
-  const data = getShoppingData();
-  const todoList = document.getElementById('todo-list');
-  const doneList = document.getElementById('done-list');
-  
-  if (!todoList || !doneList) return;
+  const data = getShoppingData();
+  const todoList = document.getElementById('todo-list');
+  const doneList = document.getElementById('done-list');
+  
+  if (!todoList || !doneList) return;
 
-  todoList.innerHTML = '';
-  doneList.innerHTML = '';
+  todoList.innerHTML = '';
+  doneList.innerHTML = '';
 
-  // 待買清單
-data.todo.forEach((item, index) => {
-  todoList.innerHTML += `
-    <li>
-      <span>${escapeHtml(item)}</span>
-      <div class="list-actions">
-        <button class="list-btn done" onclick="markItemDone(${index})">完成</button>
-        <button class="list-btn delete" onclick="deleteItem(${index}, 'todo')">刪除</button>
-      </div>
-    </li>
-  `;
-});
+  // 渲染待買清單
+  data.todo.forEach((item, index) => {
+    todoList.innerHTML += `
+      <li>
+        <span>${escapeHtml(item)}</span>
+        <div class="list-actions">
+          <button class="list-btn done" onclick="markItemDone(${index})">完成</button>
+          <button class="list-btn delete" onclick="deleteItem(${index}, 'todo')">刪除</button>
+        </div>
+      </li>
+    `;
+  });
 
-// 已買清單
-data.done.forEach((item, index) => {
-  doneList.innerHTML += `
-    <li>
-      <span>${escapeHtml(item)}</span>
-      <div class="list-actions">
-        <button class="list-btn delete" onclick="deleteItem(${index}, 'done')">刪除</button>
-      </div>
-    </li>
-  `;
-});
+  // 渲染已買清單
+  data.done.forEach((item, index) => {
+    doneList.innerHTML += `
+      <li>
+        <span>${escapeHtml(item)}</span>
+        <div class="list-actions">
+          <button class="list-btn delete" onclick="deleteItem(${index}, 'done')">刪除</button>
+        </div>
+      </li>
+    `;
+  });
 }
 
 function addItem() {
@@ -378,4 +378,5 @@ function clearHistory() {
   localStorage.removeItem('fxHistory');
   renderHistory();
 }
+
 
